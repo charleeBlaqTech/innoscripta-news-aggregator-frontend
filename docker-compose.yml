@@ -1,8 +1,9 @@
- frontend:
-  build:
-    context: ./news-aggregator-frontend
-    dockerfile: Dockerfile
-  ports:
-    - "5173:80"
-  depends_on:
-    - app
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
