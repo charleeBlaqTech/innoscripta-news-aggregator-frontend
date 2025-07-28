@@ -30,7 +30,8 @@ export default function AuthPage() {
       showToast('Authenticated successfully!')
       navigate('/feed')
     } catch (err) {
-      showToast('Authentication failed')
+
+      showToast(`Authentication failed`)
       console.error(err)
     } finally {
       setLoading(false)

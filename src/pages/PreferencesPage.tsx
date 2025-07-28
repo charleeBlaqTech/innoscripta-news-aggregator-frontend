@@ -61,9 +61,9 @@ export default function PreferencesPage() {
     fetchOptionsAndUserPrefs();
   }, []);
 
-  const handleSelect = (groupKey: keyof typeof selected, value: number) => {
-    setSelected((prev) => ({ ...prev, [groupKey]: value }));
-  };
+  // const handleSelect = (groupKey: keyof typeof selected, value: number) => {
+  //   setSelected((prev) => ({ ...prev, [groupKey]: value }));
+  // };
 
   const handleSave = async () => {
     setSaving(true);
@@ -79,33 +79,44 @@ export default function PreferencesPage() {
   };
 
   const renderGroup = (
-    label: string,
-    items: Option[],
-    groupKey: keyof typeof selected
-  ) => (
-    <div className="preferences-group">
-      <h2 className="preferences-label">{label}</h2>
-      <div className="preferences-options">
-        {items.map((item) => (
+  label: string,
+  items: Option[],
+  groupKey: keyof typeof selected
+) => (
+  <div className="preferences-group mb-6">
+    <h2 className="preferences-label text-lg font-semibold mb-2">{label}</h2>
+    <div className="preferences-options flex flex-wrap gap-2">
+      {items.map((item) => {
+        const isSelected = selected[groupKey] === item.id;
+
+        return (
           <label
             key={item.id}
-            className={`preference-option ${
-              selected[groupKey] === item.id ? "selected" : ""
+            className={`cursor-pointer px-4 py-2 border rounded-full transition-all ${
+              isSelected
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
             }`}
           >
             <input
-              type="radio"
-              name={groupKey}
+              type="checkbox"
               className="hidden"
-              checked={selected[groupKey] === item.id}
-              onChange={() => handleSelect(groupKey, item.id)}
+              checked={isSelected}
+              onChange={() =>
+                setSelected((prev) => ({
+                  ...prev,
+                  [groupKey]: isSelected ? null : item.id,
+                }))
+              }
             />
             {item.name}
           </label>
-        ))}
-      </div>
+        );
+      })}
     </div>
-  );
+  </div>
+);
+
 
   return (
     <>

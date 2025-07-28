@@ -5,6 +5,7 @@ import SearchPage from './pages/SearchPage'
 import PreferencesPage from './pages/PreferencesPage'
 import AuthPage from './pages/AuthPage'
 import HomePage from './pages/HomePage'
+import ArticlesPage from './pages/ArticlesPage';
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { Layout } from './components/Layout'
 
@@ -14,6 +15,7 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/articles" element={<ProtectedRoute><ArticlesPage/></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><FeedPage /></ProtectedRoute>} />
           <Route path="/feed/:id" element={<ProtectedRoute><SingleFeedPage /></ProtectedRoute>} />
           <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />

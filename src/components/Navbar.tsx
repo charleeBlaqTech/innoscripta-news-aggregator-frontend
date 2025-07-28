@@ -36,6 +36,7 @@ export const Navbar = () => {
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         {token ? (
           <>
+            <Link to="/articles" className="navbar-link" onClick={() => setMenuOpen(false)}>Articles</Link>
             <Link to="/feed" className="navbar-link" onClick={() => setMenuOpen(false)}>Feed</Link>
             <Link to="/search" className="navbar-link" onClick={() => setMenuOpen(false)}>Search</Link>
             <Link to="/preferences" className="navbar-link" onClick={() => setMenuOpen(false)}>Preferences</Link>

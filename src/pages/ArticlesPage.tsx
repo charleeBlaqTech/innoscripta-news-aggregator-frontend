@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Toast } from "../components/Toast";
 import Loader from "../components/Loader";
 import { useToast } from "../hooks/useToast";
-import { fetchFeed } from "../api/articles";
+import { fetchArticles } from "../api/articles";
 import { ArticleCard } from "../components/ArticleCard";
 import Pagination from "../components/Pagination";
 
@@ -16,7 +16,7 @@ type Article = {
   source: { name: string };
 };
 
-export default function FeedPage() {
+export default function ArticlesPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -24,28 +24,28 @@ export default function FeedPage() {
   const { showToast, closeToast, message } = useToast();
 
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchAllArticles = async () => {
       setLoading(true);
       try {
-        const res = await fetchFeed(page);
+        const res = await fetchArticles(page);
         setArticles(res?.data?.data || []);
         setTotalPages(res?.data?.last_page || 1);
-        showToast("Feed Articles loaded based on preferences!");
+        showToast("All Available Articles loaded!");
       } catch (error) {
         console.error("Failed to fetch articles", error);
-        showToast("Failed to load feed articles");
+        showToast("Failed to load all articles");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchArticles();
+    fetchAllArticles();
   }, [page]);
 
   return (
     <>
       <div className="feed-container">
-        <h1 className="page-title">Your Feed</h1>
+        <h1 className="page-title">All Articles</h1>
 
         {loading ? (
           <Loader message="Loading articles..." />
